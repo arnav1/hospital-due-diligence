@@ -1,0 +1,5 @@
+body { font-family: system-ui, sans-serif; line-height: 1.4; max-width: 880px; margin: 2rem auto; padding: 0 1rem; }
+form { display: grid; gap: 1rem; margin-bottom: 1rem; }
+fieldset { border: 1px solid #ddd; padding: .75rem; }
+.card { border: 1px solid #e5e5e5; border-radius: .75rem; padding: .75rem; margin: .5rem 0; }
+button { padding: .5rem .8rem; border: 1px solid #222; background: #fff; cursor: pointer; }

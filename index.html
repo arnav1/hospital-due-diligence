@@ -1,0 +1,40 @@
+---
+layout: default
+title: Start
+---
+
+<h1>Hospital Due Diligence – Prototype</h1>
+
+<form id="dd-form">
+  <label>State</label>
+  <select name="state" required>
+    <option value="KA">Karnataka</option>
+    <option value="MH">Maharashtra</option>
+    <option value="OTHER">Other</option>
+  </select>
+
+  <fieldset>
+    <legend>Services</legend>
+    <label><input type="checkbox" name="services" value="inpatient"> In-patient beds</label>
+    <label><input type="checkbox" name="services" value="icu"> ICU</label>
+    <label><input type="checkbox" name="services" value="ot"> Operating Theatres</label>
+    <label><input type="checkbox" name="services" value="kitchen"> Kitchen/Dietary</label>
+    <label><input type="checkbox" name="services" value="diagnostic_xray"> X-ray</label>
+    <label><input type="checkbox" name="services" value="ct_scan"> CT</label>
+    <label><input type="checkbox" name="services" value="ob_ultrasound"> Obstetric USG</label>
+  </fieldset>
+
+  <button type="submit">Generate Checklist</button>
+</form>
+
+<div id="results"></div>
+
+<!-- Inject rules into the page at build time -->
+<script>
+  window.RULES = {{ site.data.rules | jsonify }};
+</script>
+<script src="{{ '/assets/app.js' | relative_url }}"></script>
+
+<!-- inside renderChecklist() output in index.html -->
+<!-- <a class="button" href="{{ '/checklist.html' | relative_url }}">Open print view</a> -->
+

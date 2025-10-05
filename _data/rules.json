@@ -1,0 +1,60 @@
+[
+  {
+    "id": "reg.state.core",
+    "name": "Hospital Registration",
+    "applies_if": [{"anyOf":[{"stateIn":["KA"]},{"stateIn":["MH"]},{"stateIn":["OTHER"]}]}],
+    "variant_by_state": {
+      "KA": {"label": "KPME Registration", "authority": "Health Dept (KA)"},
+      "MH": {"label": "Nursing Homes Registration (MH)", "authority": "Health Dept (MH)"},
+      "OTHER": {"label": "Clinical Establishments Registration", "authority": "District Registration Authority"}
+    },
+    "documents": ["Ownership proof/lease", "Floor plans", "Staff list", "Equipment list"],
+    "notes": "State regime differs; pick the correct branch.",
+    "source_url": "<insert-official-link>"
+  },
+  {
+    "id": "env.bmw",
+    "name": "Bio-Medical Waste Authorization",
+    "applies_if": [{"allOf":[{"countryIs":"IN"}]}],
+    "authority": "State Pollution Control Board",
+    "documents": ["Application form", "CBWTF MoU", "Facility layout"],
+    "notes": "Needed for any healthcare facility generating BMW.",
+    "source_url": "<insert-official-link>"
+  },
+  {
+    "id": "rad.aerb.dx",
+    "name": "AERB Licence – Diagnostic X-ray/CT",
+    "applies_if": [{"anyOf":[{"serviceIn":["diagnostic_xray","ct_scan"]}]}],
+    "authority": "AERB",
+    "documents": ["Layout approval", "Type-approval", "RSO qualification", "Dosimetry plan"],
+    "notes": "Apply via eLORA; maintain QA and dosimetry.",
+    "source_url": "<insert-official-link>"
+  },
+  {
+    "id": "food.fssai",
+    "name": "FSSAI Licence – Hospital Kitchen",
+    "applies_if": [{"serviceIn":["kitchen"]}],
+    "authority": "FSSAI",
+    "documents": ["Food safety plan", "Layout", "Water test report"],
+    "notes": "Required if you run in-house dietary services.",
+    "source_url": "<insert-official-link>"
+  },
+  {
+    "id": "safety.fire",
+    "name": "Fire NOC (NBC Part 4)",
+    "applies_if": [{"anyOf":[{"serviceIn":["ot","icu","inpatient"]}]}],
+    "authority": "Local Fire Dept",
+    "documents": ["Fire safety drawings", "Detection & suppression specs"],
+    "notes": "Applicable to most in-patient facilities.",
+    "source_url": "<insert-official-link>"
+  },
+  {
+    "id": "usg.pcpndt",
+    "name": "PCPNDT Registration – Obstetric Ultrasound",
+    "applies_if": [{"serviceIn":["ob_ultrasound"]}],
+    "authority": "Appropriate Authority (PCPNDT)",
+    "documents": ["Form A", "Equipment details", "Undertakings"],
+    "notes": "Mandatory for any obstetric ultrasound services.",
+    "source_url": "<insert-official-link>"
+  }
+]
