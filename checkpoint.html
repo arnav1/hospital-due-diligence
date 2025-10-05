@@ -1,0 +1,68 @@
+---
+layout: default
+title: Checklist
+---
+
+<link rel="stylesheet" href="{{ '/assets/styles.css' | relative_url }}">
+
+<h1>Hospital Due Diligence – Checklist</h1>
+<p><a href="{{ '/' | relative_url }}">← Back to inputs</a></p>
+
+<div id="results"></div>
+
+<button id="printPlan">Print / Save as PDF</button>
+
+<script>
+  // Inject rules for label/authority overrides if needed
+  window.RULES = {{ site.data.rules | jsonify }};
+</script>
+
+<script>
+// Minimal renderer (mirrors the one in app.js)
+(function () {
+  const results = document.getElementById('results');
+  const saved = JSON.parse(localStorage.getItem('dd_plan') || 'null');
+
+  if (!saved) {
+    results.innerHTML = '<p>No saved plan found. Go back and generate one first.</p>';
+    document.getElementById('printPlan').style.display = 'none';
+    return;
+  }
+
+  const ctx = saved.ctx;
+  const rules = saved.rules;
+
+  function renderChecklist(ctx, rules) {
+    if (!rules.length) return '<p>No requirements matched.</p>';
+    const items = rules.map(r => {
+      let label = r.name;
+      let authority = r.authority || '';
+      if (r.variant_by_state && r.variant_by_state[ctx.state]) {
+        label = r.variant_by_state[ctx.state].label || label;
+        authority = r.variant_by_state[ctx.state].authority || authority;
+      }
+      const docs = (r.documents || []).map(d => `<li>${d}</li>`).join('');
+      const source = r.source_url ? `<a href="${r.source_url}" target="_blank" rel="noopener">Source</a>` : '';
+      return `
+        <li class="card">
+          <h3>${label}</h3>
+          <p><strong>Authority:</strong> ${authority || '—'}</p>
+          ${r.notes ? `<p>${r.notes}</p>` : ''}
+          ${source}
+          <details open>
+            <summary>Documents</summary>
+            <ul>${docs}</ul>
+          </details>
+        </li>`;
+    }).join('');
+
+    return `
+      <p><strong>State:</strong> ${ctx.state} &nbsp;|&nbsp; <strong>Services:</strong> ${ctx.services.join(', ') || '—'}</p>
+      <ol>${items}</ol>
+    `;
+  }
+
+  results.innerHTML = renderChecklist(ctx, rules);
+  document.getElementById('printPlan').onclick = () => window.print();
+})();
+</script>
